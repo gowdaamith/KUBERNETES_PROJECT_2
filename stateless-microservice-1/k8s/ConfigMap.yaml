@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: statelessapp-config
+data:    
+  APP_NAME : "stateless-app"
+  ENV : "dev"
+  FEATURE_FLAG: "true"
+
+
