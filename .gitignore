@@ -1,0 +1,111 @@
+# =========================
+
+# Node.js
+
+# =========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+
+.env
+.env.*
+!.env.example
+
+# Logs
+
+logs/
+*.log
+
+# Runtime files
+
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+
+coverage/
+.nyc_output/
+
+# Build output (if you add later)
+
+dist/
+build/
+
+# =========================
+
+# OS / Editor files
+
+# =========================
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+
+# Docker
+
+# =========================
+
+Dockerfile*
+.dockerignore
+
+# Ignore local docker artifacts (optional)
+
+*.tar
+
+# =========================
+
+# Kubernetes (optional handling)
+
+# =========================
+
+# If you generate manifests dynamically
+
+*.generated.yaml
+
+# =========================
+
+# Terraform (if you add later)
+
+# =========================
+
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*.tfvars
+*.tfvars.json
+
+# =========================
+
+# Minikube / Kubernetes local
+
+# =========================
+
+.kube/
+minikube/
+
+# =========================
+
+# Misc
+
+# =========================
+
+*.bak
+*.tmp
+*.temp
+

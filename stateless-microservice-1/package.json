@@ -1,0 +1,17 @@
+{
+"name": "config-demo-app",
+"version": "1.0.0",
+"description": "Simple Node.js config + env demo app",
+"main": "app.js",
+"scripts": {
+"start": "node src/app.js",
+"build":"echo 'no build step'"
+},
+"keywords": [],
+"author": "Amith",
+"license": "MIT",
+"dependencies": {
+"express": "^4.19.2"
+}
+}
+
