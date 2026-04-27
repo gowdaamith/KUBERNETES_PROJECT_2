@@ -1,12 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata: 
-  name: statelessappp-service
+  name: statelessapp-service
 spec:
-  selector:
-    matchLabels: 
+  selector: 
       app: statelessapp
-    ports:
-      - protocol: TCP
-        port: 80
-        targetPort: 3000
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

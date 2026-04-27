@@ -4,7 +4,7 @@ metadata:
   name: statelessapp-config
 data:    
   APP_NAME : "stateless-app"
-  ENV : "dev"
+  ENVIRONMENT : "dev"
   FEATURE_FLAG: "true"
 
 

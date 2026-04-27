@@ -3,16 +3,15 @@ kind: Ingress
 metadata: 
   name: statelessapp-ingress
 spec: 
-  ingressClassName:
   rules:
-  - http:
+  - host: statelessapp.local
+    http:
       paths:
-      - path: /testpath`
-        pathtype: Prefix
-        backend: 
-        service: 
-          name: test
-          port: 
-            number: 80
-
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: statelessapp-service
+            port: 
+              number: 80
 
