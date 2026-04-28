@@ -1,0 +1,48 @@
+envFrom(Buld Injection)
+
+envFrom:
+  - secretRef:
+      name: db-secret
+This injects All keys from the secret as environmental variable
+
+
+Example Secret:
+
+data:
+  DB_USER: YWRtaW4=
+  DB_PASS: cGFzc3dvcmQ=
+
+When to use envFrom: 
+
+*You trust all keys
+*YOu want simplicity
+*Small project / quick setup
+
+Problem 
+*NO control over individual variable
+*Easy to accidentally expose more than needed
+
+
+valueFrom(Selective Injection)
+
+env:
+  - name: DB_USER
+    valueFrom:
+      secretKeyRef:
+        name: db-secret
+        key: DB_USER
+
+
+
+When to use ValueFrom
+*YOu want explicit control
+*YOu follow productiong-grade practice
+*YOu avoid accidental leaks
+
+
+Why this is better 
+* Only inject what is needed
+* Clear mapping -> easier debuggin 
+* Safer when secrets grow
+
+
