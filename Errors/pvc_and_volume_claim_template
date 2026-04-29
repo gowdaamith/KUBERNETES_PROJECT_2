@@ -1,0 +1,116 @@
+Why do we need storage in Kubernetes?
+>> Containers are temporary 
+
+if a contianer crashes:
+  * Container filesystem is lost
+  * all data inside it disappears
+
+This is not good for pods that need persistent data storage like: 
+
+* Databases
+* Jenkins
+* applicatoion storing files
+
+So kubernets uses persistent storage 
+
+1.PersistentVolumeClaim
+
+A PVC is a request for persistent storage in kubernetes
+
+what PVC does : 
+*Request storage
+*Attach storage to pods
+*keep the data safe after pods restart
+
+
+Example PVC:
+
+apiVersion : v1
+kind: PersistentVolumeClaim
+metadata: 
+  name : mongo-pvc
+spec:
+  accessModes: 
+    - ReadWriteOnce 
+  resources:
+    requests: 
+      storage: 1Gi
+
+
+Attachment inside the pod: 
+
+pod using the PVC: 
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongodb
+spec:
+  containers:
+    - name: mongodb
+      image: mongo:6
+
+      volumeMounts:
+        - name: mongo-storage
+          mountPath: /data/db
+
+  volumes:
+    - name: mongo-storage
+      persistentVolumeClaim:
+        claimName: mongo-pvc
+
+PVC is not the actual disk  it's just the request for storage
+Actual storage is :
+  * Persistent voluem
+  * EBS disk
+  * Azure disk
+  * NFS
+
+2.Volume Claim template 
+
+VolumeClaimTemplate is an automatic PVC generator used inside statefulsets
+
+It is used in statefull appplication like : 
+* MongoDB
+* POstgresSQL
+* Kafka
+
+That need: 
+  * Separate storage per pod
+  * Stable storage mapping 
+
+Example:
+
+mongodb-0 → own storage
+mongodb-1 → own storage
+
+Creating PVCs manually becomes difficult.So statefulSet automatically creates PVC's using VolumeClaimTemplates
+
+What happens internally is : 
+
+If StatefulSet has:
+replicas: 2
+
+Kubernetes automatically creates:
+
+mongo-storage-mongodb-0
+mongo-storage-mongodb-1
+
+Each pod gets:
+
+its own PVC
+its own disk
+stable storage
+
+
+     StatefulSet 
+         ↓
+ volumeClaimTemplates 
+         ↓ 
+ Automatic PVC creation 
+         ↓
+ Storage attached to pods
+
+
+
