@@ -42,3 +42,10 @@ spec:
               secretKeyRef:
                 name: app-secret
                 key: DB_PASS
+
+          - name: DB_HOST
+            valueFrom: 
+              configMapKeyRef:
+                name: app-configmap
+                key: DB_HOST
+                  

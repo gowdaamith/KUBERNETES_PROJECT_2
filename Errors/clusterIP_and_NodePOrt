@@ -1,0 +1,63 @@
+Core Difference between the ClusterIP and NodePort
+
+ClusterIP : Only Inside the kubernetes cluster
+NodePort  : Outside the cluster via node ip 
+
+
+ClusterIP
+
+Ex: 
+
+type: ClusterIP
+
+This creates : 
+* internal virtual IP
+* internal DNS
+* internal load balancing 
+
+But : "NOT REACHABLE FROM BROWSER / INTERNETE DIRECTLY"
+
+example: backend-service
+
+can be accessed by: 
+
+>> http://backend-service:3000
+
+only from: 
+*Pods 
+*Container inside cluster
+
+NOT from your laptop browser
+
+
+Why this is used: 
+  Because pods like backend is a internal microservice and you  don't 
+  * User directly calling backend pods
+  * DB exposed publicly 
+This is a secure architecture
+
+___________________________________________________________________________
+NodePort: 
+
+Ex: 
+
+type: NodePort
+
+This exposes service externally 
+kubernetes exposes a port on every node.
+>> <NodeIP>:30691
+
+Now browser/external users can access the pods by using the nodeip and the node port that is opened 
+
+Browser
+   ↓
+NodeIP:30691
+   ↓
+frontend-service
+   ↓
+frontend pod
+
+
+
+
+

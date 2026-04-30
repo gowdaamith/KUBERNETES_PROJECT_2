@@ -31,5 +31,5 @@ spec:
             - name: BACKEND_URL
               valueFrom:
                 configMapKeyRef:
-                  name: backend-config
+                  name: app-configmap
                   key: BACKEND_URL
