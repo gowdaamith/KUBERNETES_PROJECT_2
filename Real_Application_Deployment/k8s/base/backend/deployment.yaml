@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata: 
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: backend
+  template: 
+    metadata:
+      labels: 
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: gowdaamith/backend:v2
+        ports: 
+        - containerPort: 80
+       
+        env: 
+          - name: APP_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: app-configmap
+                key: APP_NAME
+          - name: ENVIRONMENT
+            valueFrom: 
+              configMapKeyRef:
+                name: app-configmap
+                key: ENVIRONMENT
+
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: DB_USER
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: DB_PASS
