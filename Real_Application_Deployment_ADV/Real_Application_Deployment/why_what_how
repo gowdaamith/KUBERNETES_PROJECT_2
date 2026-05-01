@@ -1,0 +1,70 @@
+System Architecture : 
+----------------------
+
+Frontend (UI or simple API client)
+        ↓
+Backend API Service
+        ↓
+Database (stateful)
+
+
+
+Service we must build : 
+-----------------------
+
+
+1. Frontend Service (optional simple API client)
+
+Can be Node/Python simple service
+Calls backend service
+
+2. Backend Service (IMPORTANT)
+This is your Phase 1 app upgraded
+Must now:
+Store and retrieve data from DB
+Use environment-based config
+Fail gracefully when DB is down
+
+Endpoints:
+
+/health
+/config
+/data → writes/reads from DB
+
+
+3.Database (Stateful)
+
+Pick ONE:
+
+PostgreSQL (recommended)
+OR
+MongoDB
+
+You MUST deploy it as:
+StatefulSet OR managed external DB (your choice, but justify it)
+
+
+New Kubernetes Concepts you must use: 
+
+1.Ingress Controller
+
+Use:
+
+NGINX Ingress OR AWS ALB Ingress (if EKS)
+This is your first real traffic routing layer.
+
+2.Persistent Storage
+PersistentVolumeClaim (PVC)
+Storage class awareness
+
+Database MUST NOT lose data on restart.
+
+3.Environment Separation
+You must simulate:
+
+* dev namespace
+* staging namespace
+
+Same app, different configs.
+
+

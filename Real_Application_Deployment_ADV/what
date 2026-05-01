@@ -1,0 +1,38 @@
+Phase 3: Production Architecture 
+
+ New Objective
+
+>>  "works locally"
+
+into: 
+
+>> "production-capable distributed system"
+
+What you will learn now: 
+You already built: 
+*Deployment
+*StatefulSets
+*Services
+*ConfigMaps
+*Secrest 
+*Persisten Storage
+
+Now move into : 
+
+* scalability
+* resource management
+* traffic engineering
+* production networking
+* autoscaling
+* cloud architecture
+
+ROADMAP
+
+1.Add Resource Requests and Limits
+2.Add Liveness and Readinesss Probes
+3.Scale Backend
+4.Introduce HPA
+5.Introduce Ingress
+6.Simulate Node failure 
+
+
