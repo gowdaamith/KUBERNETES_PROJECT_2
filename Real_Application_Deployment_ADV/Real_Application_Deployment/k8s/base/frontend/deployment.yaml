@@ -35,12 +35,32 @@ spec:
                   key: BACKEND_URL
 
           resources: 
-            limits: 
-              cpu: "0.5"
-              memory: "100Mi"
             requests: 
-              cpu: "0.5"
-              memory:  "50Mi"
+              cpu: "200m"
+              memory: "256Mi"
+            limits: 
+              cpu: "500m"
+              memory:  "512Mi"
 
+
+          startupProbe: 
+            httpGet: 
+              path: /
+              port: 3000
+              failureThreshold: 30
+              periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+              initialDelaySeconds: 10
+              periodSeconds: 5
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+              periodSeconds: 5
 
 
