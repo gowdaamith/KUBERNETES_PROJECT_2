@@ -1,0 +1,92 @@
+Startup Probe : Usually used for the application that has slow staring problem 
+
+Meaning : "Has the application finished starting properly "
+
+Why this exits: 
+Some applications take a long time to start (Java, Spring Boot, DBs, ML apps).
+Without this, Kubernetes may think the app is broken too early.
+
+What it does is: 
+*Runs only during the startup phase
+*Blocks other probes (readiness and liveness)
+*Once it succeds -> normal check begins
+
+Simple meaning:  "Don't disturb the app until it fully boots "
+Prevents: CrashLoopBackOff during slow startup 
+
+2.Readiness Probe 
+
+Meaning: "Is the application is ready to serve the traffic "
+
+Why it exits: 
+Even if the app  is running ,it may not be ready 
+*DB not connected 
+*cache loading
+*config not loaded
+
+what it does:
+*Controls traffic routing
+*if failed -> Pod is NOT given traffic
+*Pod still runs normallly 
+
+
+Simple meaning: "Don't send users until everything is ready "
+It prevent : "Connection failure like Pod is  alive but not serving requests"
+
+3.Liveness Probe
+
+Meaning : "Is the application still healthy and alive ?"
+
+Why it exits: 
+*Sometimes app is:
+   * Stuck in infinite loop
+   * Deadlocked
+   * memory leak 
+   * not responding 
+But container is still "running"
+
+
+What it does:
+ * continuously checks health
+ * If fails -> Kubernetes restart the container 
+
+
+
+Example: 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: simpleapp-deployment
+spec:
+  selector: 
+    matchLables: 
+      app: simpleapp
+  template: 
+    metadata:
+      lables:
+        app: simpleapp
+    spec: 
+      containers: 
+        - name: simpleapp
+          image: gowdaamith/app:v1
+          ports: 
+            - containerPort: 80
+          startupProbe:
+            httpGet:                      #kubernetes will call the app using http requests 
+              path: /                     #it hits http://pod-ip
+              port: 80                    # on port 80
+              failureThreshold: 30        # allow 30 failur to happen 
+              periodSeconds: 10           # gap between each check is 10sec
+          readinessProbe:
+            httpGet: 
+              path: /
+              port: 80
+              initialDelaySeconds: 5       # Wait 5sec after starting the container before checking               
+              periodSeconds: 5             # gap between every 5 seconds
+          livenesProbe:
+            httpGet:
+              path: /
+              port: 80
+              initialDeloySeconds: 15      # Wait for 15sec after starting the container before checking
+              periodSeconds: 10            # gap betweeen each check 
