@@ -7,6 +7,6 @@ spec:
     app: {{ .Values.sevice.app }}
   ports: 
     - protocol: {{ .Values.service.protocol }}
-      port: {{ .Values.service.protocol }}
+      port: {{ .Values.service.prot }}
       targetPort: {{ .Values.service.targerPort }}
   type:  {{ .Values.service.type }}
