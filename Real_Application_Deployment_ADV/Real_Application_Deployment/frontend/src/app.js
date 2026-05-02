@@ -5,6 +5,9 @@ const app = express();
 
 // Backend service URL (THIS WILL BREAK IF MISCONFIGURED)
 const BACKEND_URL = process.env.BACKEND_URL;
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
 
 app.get("/", async (req, res) => {
   try {

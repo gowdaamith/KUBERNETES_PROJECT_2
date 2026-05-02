@@ -89,4 +89,114 @@ spec:
               path: /
               port: 80
               initialDeloySeconds: 15      # Wait for 15sec after starting the container before checking
-              periodSeconds: 10            # gap betweeen each check 
+              periodSeconds: 10            # gap betweeen each check
+
+
+
+
+If readiness is not good  the pods will not recive the traffic
+If livveness is not good the pods will get replace by another new pod
+
+
+
+Kubernetes Probes support 3 types of checks : 
+1. httpGet   → HTTP endpoint check
+2. tcpSocket → port connectivity check
+3. exec      → run a command inside container
+
+
+
+httpGet Probe : Used when your app exposes HTTP endpoints (Node.js, Spring Boot, Flask)  
+
+Ex: 
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 3000
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 3
+
+Used for : 
+
+*Node.js app
+*Java Spring Boot
+*Python Flask / FastAPI
+*Web servers (Nginx, Express)
+
+
+tcpSocket Probe:   Used when there is NO HTTP API, only a port is exposed
+Example (MongoDB / Redis / PostgreSQL)
+
+readinessProbe:
+  tcpSocket:
+    port: 27017
+  initialDelaySeconds: 5
+  periodSeconds: 5
+
+
+Use for:
+*MongoDB
+*Redis
+*MySQL / PostgreSQL
+*Kafka
+*RabbitMQ
+
+
+3.exec Probe (Deep Health check) : Runs commands inside the containers
+livenessProbe:
+  exec:
+    command:
+      - mongosh
+      - --eval
+      - "db.runCommand({ ping: 1 })"
+  initialDelaySeconds: 20
+  periodSeconds: 10
+
+Meaning: Runs command inside the container and check if it succeeds or not 
+
+
+✅ Use for:
+*DB health validation
+*custom app checks
+*checking disk, memory, or internal state
+
+
+What is gRPC?
+gRPC is a high performance communication protocol used for service to service communication 
+
+Instead fo HTTP + JSON ,is uses
+* HTTP/2  (faster)
+* Binary data (Protocol buffer / protobuf)
+* Strongly typed API's
+
+gRPC in Kubernetes probes: 
+kubernetes also supports health checks
+
+livenessProbe: 
+  grpc:
+    port: 50051
+
+Meaning: "call gRPC health service on port 50051 and check if service is healthy "
+
+Ex: gRPC service
+
+A backend might expose:
+service HealthService {
+  rpc Check (HealthRequest) returns (HealthResponse);
+}
+
+Kubernetes calls it internally to check health.
+
+>> When to use gRPC probe
+Use it when:
+
+your app is built with gRPC
+microservices communicate via protobuf
+no HTTP endpoints exist
+
+⚠️ When NOT to use it
+normal REST APIs → use httpGet
+databases → use tcpSocket or exec
+

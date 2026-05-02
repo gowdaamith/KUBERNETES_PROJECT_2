@@ -22,7 +22,22 @@ spec:
 
           ports:
             - containerPort: 27017
-
+          
+          startupProbe: 
+            tcpSocket:
+              port:  27017
+            failureThreshold: 30
+            periodSeconds: 5
+          readinessProbe: 
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket: 
+               port: 27017
+            initialDelaySeconds: 20
+            periodSeconds: 10
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
@@ -35,10 +50,20 @@ spec:
                 secretKeyRef:
                   name: app-secret
                   key: DB_PASS
+          
+          resources: 
+            requests: 
+              cpu: "250m"
+              memory: "512Mi"
+            limits: 
+              cpu: "500m"
+              memory: "600Mi"
+
 
           volumeMounts:
             - name: mongo-storage
               mountPath: /data/db
+
 
   volumeClaimTemplates:
     - metadata:
