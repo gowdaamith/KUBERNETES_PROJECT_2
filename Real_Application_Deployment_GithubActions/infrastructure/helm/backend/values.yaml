@@ -1,4 +1,4 @@
-deployment: 
+Deployment: 
   name: backend-deployment
   app: backend
   replicas: 2
