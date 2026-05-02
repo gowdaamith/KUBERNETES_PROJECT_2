@@ -7,5 +7,5 @@ data:
   ENVIRONMENT: {{ .Values.configMap.ENVIRONMENT }}
   FEATURE_FLAG: {{ .Values.configMap.FEATURE_FLAG }}
   BACKEND_URL: {{ .Values.configMap.BACKEND_URL }}
-  DB_HOST: {{ .Valuse.configMap.DB_HOST }}
+  DB_HOST: {{ .Values.configMap.DB_HOST }}
 

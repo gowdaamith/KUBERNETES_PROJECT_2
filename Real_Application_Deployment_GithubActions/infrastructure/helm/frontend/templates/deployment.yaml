@@ -29,8 +29,8 @@ spec:
               cpu: {{ .Values.resource.requests.cpu }}
               memory: {{ .Values.resource.requests.memory }}
             limits:
-              cpu: {{ .Values.resource.limit.cpu }}
-              memory: {{ .Values.resource.limit.memory }}
+              cpu: {{ .Values.resource.limits.cpu }}
+              memory: {{ .Values.resource.limits.memory }}
 
 
 
@@ -49,11 +49,9 @@ spec:
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
 
-         readinessProbe:
-           httpGet:
-             path: {{ .Values.readinessProbe.path }}
-             port: {{ .Values.readinessProbe.port }}
-           periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-
-
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.readinessProbe.path }}
+              port: {{ .Values.readinessProbe.port }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
 

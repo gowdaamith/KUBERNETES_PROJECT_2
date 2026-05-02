@@ -3,12 +3,13 @@ kind: Service
 metadata: 
   name: {{ .Values.service.name }}
 spec:
-  clusterIP: 
+  clusterIP:  {{ .Values.service.type }}
   selector: 
     app: {{ .Values.statefulset.app }}
   ports:
     - protocol: {{ .Values.service.protocol }}
-      port: {{ .Values.service.prot }}
+      port: {{ .Values.service.port }}
+        
 
 
 

@@ -6,22 +6,22 @@ image:
   repository: gowdaamith/frontend
   tag: v3
 ports:
-  containerrPort: 3000
+  containerPort: 3000
 configMap:
-  name: app-configMap
-  APP_NAME: HE-HOO
+  name: app-configmap
+  APP_NAME: backend-service
   ENVIRONMENT: PROD
   FEATURE_FLAG: "true"
   BACKEND_URL: http://backend-service:3000
   DB_HOST: mongo-service
 
 resource:
-  requests:
-    cpu: 
-    memory:
+  requests: 
+    cpu:    "200m"
+    memory: "256Mi"
   limits:
-    cpu:
-    memory:
+    cpu:   "400m"
+    memory: "516Mi"
 startupProbe:
   path: /
   port: 3000

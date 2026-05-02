@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.statefulset.name }}
 spec: 
   serviceName: {{ .Values.statefulset.servicename }}
-  replicas: {{ .Values.statefulset.replicaCount }}
+  replicas: {{ .Values.statefulset.replica }}
 
   selector: 
     matchLabels: 
@@ -16,7 +16,7 @@ spec:
       spec: 
         containers:
           - name: {{ .Values.statefulset.containerName }}
-            image: {{ .Values.statefulset.Image }}
+            image: {{ .Values.statefulset.image }}
         ports:
           - containerPort: {{ .Values.statefulset.containerPort }}
 
@@ -54,14 +54,14 @@ spec:
             memory: {{ .Values.resource.requests.memory }}
           limits:
             cpu:  {{ .Values.resource.limits.cpu }}
-            memory: {{ .Values.resoruce.limits.memory }}
+            memory: {{ .Values.resource.limits.memory }}
         volumeMounts:
           - name: {{ .Values.volumeClaimTemplates.name }}
             mountPath: {{ .Values.volumeMounts.mountPath }}
 
   volumeClaimTemplates:
     - metadata: 
-        name: { .Values.volumeClaimTemplates.name }}
+        name: {{ .Values.volumeClaimTemplates.name }}
       spec: 
         accessModes:
           - {{ .Values.volumeClaimTemplates.accessModes }}

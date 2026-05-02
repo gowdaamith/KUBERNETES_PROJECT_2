@@ -6,7 +6,7 @@ statefulset:
   containerName: mongo-container
   image: mongo:6
   containerPort: 27017
-
+  
 
 startupProbe: 
   port: 27017
@@ -49,10 +49,10 @@ service:
   name: mongo-service
   protocol:  TCP
   port: 27017
-
+  type: ClusterIP
 
 configMap: 
-  name: app-configMap
+  name: app-configmap
   APP_NAME:  backedn-service
   ENVIRONMENT: dev
   FEATURE_FLAG: "true"
