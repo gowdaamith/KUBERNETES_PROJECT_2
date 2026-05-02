@@ -1,4 +1,4 @@
-Deployment: 
+deployment: 
   name: backend-deployment
   app: backend
   replicas: 2
@@ -10,11 +10,11 @@ configMap:
 secret: 
   secretfilename: app-secret
 requests:
-  cpu: 
-  memory:
+  cpu: "200m" 
+  memory: "256Mi"
 limits:
-  cpu:
-  memory: 
+  cpu: "400m"
+  memory: "512Mi"
 startupProbe:
   path: /health
   port: 3000
@@ -24,12 +24,11 @@ livenessProbe:
   path: /health
   port: 3000
   initialDelaySeconds: 5
-  periodDelaySeconds: 10
-ReadinessProbe:
+  periodSeconds: 10
+readinessProbe:
   path: /health
   port: 3000
-  periodDelaySeconds: 10
-
+  periodSeconds: 10
 
 service:
   name: backend-service

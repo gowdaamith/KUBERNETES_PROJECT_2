@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{  .Values.deployement.name}}
+  name: {{  .Values.deployment.name}}
   labels:
     app: {{ .Values.deployment.app }}
 spec:
@@ -45,28 +45,28 @@ spec:
               secretKeyRef:
                 name: {{ .Values.secret.secretfilename }}
                 key: DB_PASS 
-           resource:
-             requests:
-               cpu: {{ .Values.requests.cpu }}
-               memory: {{ .Values.requests.memory }}
-             limits:
-               cpu: {{ .Values.limits.cpu }}
-               memory: {{ .Values.limits.memory }}
-           startupProbe:
-             httpGet:
-               path: {{ .Values.startupProbe.path }}
-               port: {{ .Values.startupProbe.port }}
-             failureThreshold: {{ .Values.startupProbe.failureThreshold }}
-             periodSeconds: {{ .Values.startupProbe.periodSeconds }}
-           livnessProbe:
-             httpGet:
-               path: {{ .Values.livenssProbe.path }}
-               port: {{ .Values.livenssProbe.port }}
-             initialDeloySeconds: {{ .Values.livenessProbe.initialDelaySecond}}
-             periodSeconds: {{ .Values.livenessProbe.periodSecond }}
+        resource:
+          requests:
+            cpu: {{ .Values.requests.cpu }}    
+            memory: {{ .Values.requests.memory }}
+          limits:
+            cpu: {{ .Values.limits.cpu }}
+            memory: {{ .Values.limits.memory }}
+        startupProbe:
+          httpGet:
+             path: {{ .Values.startupProbe.path }}
+             port: {{ .Values.startupProbe.port }}
+          failureThreshold: {{ .Values.startupProbe.failureThreshold }}
+          periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+        livnessProbe:
+          httpGet:
+            path: {{ .Values.livenessProbe.path }}
+            port: {{ .Values.livenessProbe.port }}
+          initialDeloySeconds: {{ .Values.livenessProbe.initialDelaySecond}}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
 
-           readinessProbe:
-             httpGet:
-               path: {{ .Values.readinessProbe.path }}
-               port: {{ .Values.readinessProbe.port }}
-             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.readinessProbe.path }}
+            port: {{ .Values.readinessProbe.port }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
