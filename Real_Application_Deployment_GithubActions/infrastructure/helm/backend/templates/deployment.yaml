@@ -24,27 +24,27 @@ spec:
             valueFrom:
              configMapKeyRef:
                name: {{ .Values.configMap.configMapfilename }}
-               key: {{ .Values.configMap.APP_NAME}}
+               key: APP_NAME
           - name: ENVIRONMENT
             valueFrom:
               configMapKeyRef:
                 name: {{ .Values.configMap.configMapfilename }}
-                key: {{ .Values.configMap.ENVIRONMENT }}
+                key: ENVIRONMENT 
           - name: DB_HOST
             valueFrom:
               configMapKeyRef:
                 name: {{ .Values.configMap.configMapfilename }}
-                key: {{ .Values.configMap.DB_HOST }}
+                key: DB_HOST 
           - name: DB_ADMIN
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.secret.secretfilename }}
-                key: {{ .Values.secret.DB_ADMIN }}
+                key: DB_ADMIN 
           - name: DB_PASS
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.secret.secretfilename }}
-                key: {{ .Values.secret.DB_PASS }}
+                key: DB_PASS 
            resource:
              requests:
                cpu: {{ .Values.requests.cpu }}
