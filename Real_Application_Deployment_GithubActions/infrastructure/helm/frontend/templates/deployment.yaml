@@ -1,66 +1,61 @@
 apiVersion: apps/v1
 kind: Deployment
-
-metadata:
-  name: frontend-deployment
-
+metadata: 
+  name: {{ .Values.name  }}
   labels:
-    app: frontend
-
+    app: {{ .Values.app }}
 spec:
-  replicas: 1
-
-  selector:
-    matchLabels:
-      app: frontend
-
+  replicas: {{.Values.replicaCount}} 
+  selector: 
+    matchLabels: 
+      app: {{ .Values.app }}
   template:
-    metadata:
-      labels:
-        app: frontend
-
-    spec:
+    metadata: 
+     labels:
+       app: {{ .Values.app }}
+    spec: 
       containers:
-        - name: frontend-container
-          image: gowdaamith/frontend:v3
-
+        - name:  {{ .Values.containerName }} 
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
-            - containerPort: 3000
+            - containerPort: {{ .Values.ports.containerPort }}
 
           env:
-            - name: BACKEND_URL
-              valueFrom:
+            - name: {{ .Values.configMap.key }}
+              valueFrom: 
                 configMapKeyRef:
-                  name: app-configmap
-                  key: BACKEND_URL
-
+                  name: {{ .Values.configMap.name }}
+                  key:  {{ .Values.configMap.key }}
           resources: 
-            requests: 
-              cpu: "200m"
-              memory: "256Mi"
-            limits: 
-              cpu: "500m"
-              memory:  "512Mi"
+            requests:
+              cpu: {{ .Values.resource.requests.cpu }}
+              memory: {{ .Values.resource.requests.memory }}
+            limits:
+              cpu: {{ .Values.resource.limit.cpu }}
+              memory: {{ .Values.resource.limit.memory }}
 
 
-          startupProbe: 
+
+          startupProbe:
+            httpGet:
+              path:  {{ .Values.startupProbe.path}}
+              port: {{ .Values.startupProbe.port}}
+            failureThreshold: {{ .Values.startupProbe.failureThreshold }}
+            periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+        
+           
+          livenessProbe: 
             httpGet: 
-              path: /
-              port: 3000
-            failureThreshold: 30
-            periodSeconds: 10
+              path: {{ .Values.livenessProbe.path}}
+              port: {{ .Values.livenessProbe.port }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
 
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 5
+         readinessProbe:
+           httpGet:
+             path: {{ .Values.readinessProbe.path }}
+             port: {{ .Values.readinessProbe.port }}
+           periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
 
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 3000
-            periodSeconds: 5
 
 

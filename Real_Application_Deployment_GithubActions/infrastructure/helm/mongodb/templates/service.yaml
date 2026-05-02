@@ -1,17 +1,15 @@
 apiVersion: v1
 kind: Service
-metadata: 
-  name: mongo-service
-  labels: 
-    app: mongo-service
+metadata:
+  name: {{ include "mongodb.fullname" . }}
+  labels:
+    {{- include "mongodb.labels" . | nindent 4 }}
 spec:
-  clusterIP: None
-  selector: 
-    app: mongo 
+  type: {{ .Values.service.type }}
   ports:
-    - protocol: TCP
-      port: 27017
-      targetPort: 27017
-  
-
-
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "mongodb.selectorLabels" . | nindent 4 }}
