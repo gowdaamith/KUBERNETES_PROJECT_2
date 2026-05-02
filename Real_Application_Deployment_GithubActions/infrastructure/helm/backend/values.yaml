@@ -1,0 +1,40 @@
+deployment: 
+  name: backend-deployment
+  app: backend
+  replicas: 2
+  containername: backend-containername
+  image: gowdaamith/backend:v1
+  containerPort: 3000
+configMap:
+  configMapfilename: app-configmap
+secret: 
+  secretfilename: app-secret
+requests:
+  cpu: 
+  memory:
+limits:
+  cpu:
+  memory: 
+startupProbe:
+  path: /health
+  port: 3000
+  failureThreshold: 30
+  periodSeconds: 5
+livenessProbe:
+  path: /health
+  port: 3000
+  initialDelaySeconds: 5
+  periodDelaySeconds: 10
+ReadinessProbe:
+  path: /health
+  port: 3000
+  periodDelaySeconds: 10
+
+
+service:
+  name: backend-service
+  app: backend
+  protocol: TCP
+  port: 80
+  targetPort: 3000
+  type: ClusterIP
