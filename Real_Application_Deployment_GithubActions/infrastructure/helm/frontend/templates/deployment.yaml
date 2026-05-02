@@ -19,11 +19,11 @@ spec:
             - containerPort: {{ .Values.ports.containerPort }}
 
           env:
-            - name: {{ .Values.configMap.key }}
+            - name: BACKEND_URL
               valueFrom: 
                 configMapKeyRef:
                   name: {{ .Values.configMap.name }}
-                  key:  {{ .Values.configMap.key }}
+                  key: BACKEND_URL
           resources: 
             requests:
               cpu: {{ .Values.resource.requests.cpu }}
