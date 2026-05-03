@@ -41,7 +41,17 @@ servicename: frontend-service
 protocol: TCP
 serviceport: 80
 containerPort: 3000
-typeport: NodePort
+typeport: ClusterIP
+
+
+ingress:
+  name: frontend-ingress
+  hostname: myapp.local
+  pathtype: Prefix
+  path: /
+  servicename: frontend-service
+  serviceportnumber: 80
+
 
 
 
