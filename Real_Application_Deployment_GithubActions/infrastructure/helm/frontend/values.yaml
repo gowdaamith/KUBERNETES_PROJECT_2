@@ -8,7 +8,7 @@ image:
 ports:
   containerPort: 3000
 configMap:
-  name: app-configmap
+  name: app-configmapf
   APP_NAME: backend-service
   ENVIRONMENT: PROD
   FEATURE_FLAG: "true"

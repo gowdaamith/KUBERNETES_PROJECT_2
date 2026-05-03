@@ -1,4 +1,4 @@
-apiVersion: 
+apiVersion: v1
 kind: Service
 metadata: 
   name:  {{ .Values.service.name }}
@@ -7,6 +7,6 @@ spec:
     app: {{ .Values.service.app }}
   ports: 
     - protocol: {{ .Values.service.protocol }}
-      port: {{ .Values.service.prot }}
-      targetPort: {{ .Values.service.targerPort }}
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targertPort }}
   type:  {{ .Values.service.type }}

@@ -6,9 +6,9 @@ deployment:
   image: gowdaamith/backend:v1
   containerPort: 3000
 configMap:
-  configMapfilename: app-configmap
+  configMapfilename: app-configmapd
 secret: 
-  secretfilename: app-secret
+  secretfilename: app-secretd
 requests:
   cpu: "200m" 
   memory: "256Mi"
@@ -23,7 +23,7 @@ startupProbe:
 livenessProbe:
   path: /health
   port: 3000
-  initialDelaySeconds: 5
+  initialDelaySecond: 5
   periodSeconds: 10
 readinessProbe:
   path: /health
@@ -39,7 +39,7 @@ service:
   type: ClusterIP
 
 configMapfile:
-  name: app-config
+  name: app-configmapd
   APP_NAME: backend-service
   ENVIRONMENT: dev
   FEATURE_FLAG: "true"
@@ -47,6 +47,6 @@ configMapfile:
   DB_HOST: mongo-service
 
 secretfile:
-  name: app-secret
+  name: app-secretd
   DB_USER: admin
   DB_PASS: strongPassword123

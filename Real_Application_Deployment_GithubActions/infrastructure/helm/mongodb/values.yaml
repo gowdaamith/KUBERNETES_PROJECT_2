@@ -24,7 +24,7 @@ livenessProbe:
   periodSeconds: 10
 
 env:
-  configfilename: app-config
+  configfilename: app-configmap
   secretfilename: app-secret
 
 
@@ -56,8 +56,8 @@ configMap:
   APP_NAME:  backedn-service
   ENVIRONMENT: dev
   FEATURE_FLAG: "true"
-  BACKEND_URL: http://backend-servcie:3000
-  DB_HOST: mongo-service
+  BACKEND_URL: http://backend-servciee:3000
+  DB_HOST: mongo-servicee
 
 secret:
   name: app-secret
